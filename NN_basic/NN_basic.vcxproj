@@ -142,7 +142,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="HiddenNeuron.cpp" />
+    <ClCompile Include="InputNeuron.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Network.cpp" />
+    <ClCompile Include="OutputNeuron.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="HiddenNeuron.h" />
+    <ClInclude Include="InputNeuron.h" />
+    <ClInclude Include="Network.h" />
+    <ClInclude Include="OutputNeuron.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
