@@ -15,4 +15,6 @@ private:
 	InputNeuron* input_neurons;
 	HiddenNeuron* hidden_neurons;
 	OutputNeuron* output_neurons;
+
+	float learning_rate;
 };

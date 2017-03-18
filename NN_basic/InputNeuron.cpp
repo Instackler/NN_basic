@@ -1,9 +1,11 @@
 #include "InputNeuron.h"
 
 
-float InputNeuron::calc(int input)
+float InputNeuron::out(int input)
 {
-	return input * this->weight;
+	return input * weight;
 }
+
+InputNeuron::InputNeuron() {};
 
 

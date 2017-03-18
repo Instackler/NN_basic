@@ -11,5 +11,7 @@ Network::Network(int in, int hidden, int out)
 	output_num = out;
 	input_neurons = new InputNeuron[input_num];
 	hidden_neurons = new HiddenNeuron[hidden_num];
+
 	output_neurons = new OutputNeuron[output_num];
+	
 };
