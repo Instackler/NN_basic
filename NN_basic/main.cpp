@@ -6,19 +6,22 @@
 
 int main()
 {
-	double x[3] { 2,2,2 };
-
 	Network n(3, 8, 1);
 
-	printf_s("%d\n", rand() % 100);
-	printf_s("%d\n", rand() % 100);
-	printf_s("%d\n", rand() % 100);
-	printf_s("%d\n", rand() % 100);
-	printf_s("%d\n", rand() % 100);
-	printf_s("%d\n", rand() % 100);
+	double* x;
+	double* exp;
+	for (int i = 0; i < 200; ++i)
+	{
+		x = new double[3]{ (double)((rand() % 1000 + 1) / 1000), (double)((rand() % 1000 + 1) / 1000), (double)((rand() % 1000 + 1) / 1000) };
+		exp = new double[1]{ x[0] + x[1] + x[2] };
+		n.learn(x, exp, 0.1);
+		delete x;
+		delete exp;
+	}
 
-
-	printf_s("%f\n", n.process(x)[0]);
+	n.show_weights();
+	double y[3]{ 0.051,0.152,0.701 };
+	printf_s("%f\n", n.process(y)[0]);
 	//std::cout << n.process(x)[0] << std::endl;
 
 	std::cin.get();

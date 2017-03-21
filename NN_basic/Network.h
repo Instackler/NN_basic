@@ -9,6 +9,8 @@ class Network
 public:
 	Network(int, int, int);
 	double* process(double*);
+	void learn(double* input, double* expected, double rate);
+	void show_weights();
 private:
 	int input_num;
 	int hidden_num;
@@ -19,6 +21,4 @@ private:
 	double* in_res;
 	double* hid_res;
 	double* out_res;
-
-	double learning_rate;
 };

@@ -43,4 +43,76 @@ double* Network::process(double* input_array)
 	return out_res;
 }
 
+void Network::learn(double* input, double* expected, double rate)
+{
+	double* output = this->process(input);
+
+	double coeff = 0;
+	double* new_weights = new double[hidden_num];
+
+	for (int i = 0; i < output_num; ++i)
+	{
+		coeff = rate * (output[i] - expected[i]); // * output[i] * (1 - output[i]);
+		double* old_weights = output_neurons[i].get_weights();
+		
+		for (int j = 0; j < hidden_num; ++j)
+		{
+			new_weights[j] = old_weights[j] - hidden_neurons[j].get_last() * coeff;
+		}
+		output_neurons[i].set_weights(new_weights);
+
+		delete new_weights;
+	}
+
+	coeff = (output[0] - expected[0]);
+	for (int i = 0; i < hidden_num; ++i)
+	{
+		double* old_weights = hidden_neurons[i].get_weights();
+		new_weights = new double[input_num];
+		for (int j = 0; j < input_num; ++j)
+		{
+			new_weights[j] = old_weights[j] - rate *
+											  input_neurons[j].get_last() *
+											  coeff *
+										   	  hidden_neurons[i].get_last() * (1 - hidden_neurons[i].get_last()) *
+											  coeff *
+											  output_neurons[0].get_weights()[i] *
+											  output[i] * (1 - output[i]);
+		}
+		hidden_neurons[i].set_weights(new_weights);
+		delete new_weights;
+	}
+
+}
+
+void Network::show_weights()
+{
+	for (int i = 0; i < input_num; ++i)
+	{
+		printf_s("%f, ", input_neurons[i].get_weight());
+	}
+	printf_s("\n");
+
+	double* hid_w;
+	for (int i = 0; i < hidden_num; ++i)
+	{
+		hid_w = hidden_neurons[i].get_weights();
+		for (int j = 0; j < input_num; ++j)
+		{
+			printf_s("%f, \n", hid_w[j]);
+		}
+	}
+	printf_s("\n");
+
+	double* out_w;
+	for (int i = 0; i < output_num; ++i)
+	{
+		out_w = output_neurons[i].get_weights();
+		for (int j = 0; j < hidden_num; ++j)
+		{
+			printf_s("%f, ", out_w[j]);
+		}
+	}
+	printf_s("\n");
+}
 

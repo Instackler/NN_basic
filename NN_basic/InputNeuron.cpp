@@ -3,7 +3,8 @@
 
 double InputNeuron::out(double input)
 {
-	return input * weight;
+	last = input * weight;
+	return last;
 }
 
 InputNeuron::InputNeuron()
@@ -12,4 +13,13 @@ InputNeuron::InputNeuron()
 	weight = 1.0;
 }
 
+double InputNeuron::get_weight()
+{
+	return weight;
+}
+
+double InputNeuron::get_last()
+{
+	return last;
+}
 

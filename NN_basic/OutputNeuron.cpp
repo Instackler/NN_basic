@@ -1,5 +1,6 @@
 #include "OutputNeuron.h"
 #include <random>
+#define e 2.7182818284
 
 
 int OutputNeuron::hidden_num;
@@ -26,8 +27,20 @@ double OutputNeuron::out(double* input)
 		buffer += input[i] * weights[i];
 	}
 
-
-	return buffer;
+	last = 1.0 / (1.0 + pow(e, -buffer));
+	return last;
 }
 
+void OutputNeuron::set_weights(double* w)
+{
+	for (int i = 0; i < hidden_num; ++i)
+	{
+		weights[i] = w[i];
+	}
+}
+
+double* OutputNeuron::get_weights()
+{
+	return weights;
+}
 
