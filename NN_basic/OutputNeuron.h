@@ -4,8 +4,10 @@
 class OutputNeuron
 {
 public:
+	OutputNeuron();
 	static void set_hidden_num(int);
-	float out(float*);
+	double out(double*);
 private:
 	static int hidden_num;
+	double* weights;
 };

@@ -1,18 +1,21 @@
 #include "HiddenNeuron.h"
+#include <math.h>
+#include <random>
+#define e 2.7182818284
 
 
 int HiddenNeuron::input_num;
 
-float HiddenNeuron::out(float* input)
+double HiddenNeuron::out(double* input)
 {
-	float buffer = 0;
+	double buffer = 0;
 	for (int i = 0; i < input_num; ++i)
 	{
-		buffer += input[i];
+		buffer += input[i] * weights[i];
 	}
 	
 	
-	return buffer;
+	return 1.0 / (1.0 + pow(e, buffer));
 }
 
 void HiddenNeuron::set_input_num(int in_num)
@@ -22,5 +25,9 @@ void HiddenNeuron::set_input_num(int in_num)
 
 HiddenNeuron::HiddenNeuron()
 {
-	
+	weights = new double[input_num];
+	for (int i = 0; i < input_num; ++i)
+	{
+		weights[i] = (double)(rand() % 1000 + 1) / 1000.0;
+	}
 }

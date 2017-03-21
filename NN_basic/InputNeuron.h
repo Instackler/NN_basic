@@ -4,7 +4,7 @@ class InputNeuron
 {
 public:
 	InputNeuron();
-	float out(float);
+	double out(double);
 private:
-	float weight;
+	double weight;
 };

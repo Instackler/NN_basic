@@ -6,10 +6,10 @@ class HiddenNeuron
 public:
 	HiddenNeuron();
 	static void set_input_num(int);
-	float out(float*);
+	double out(double*);
 private:
 	static int input_num;
-	void* weights;
+	double* weights;
 	
 };
 

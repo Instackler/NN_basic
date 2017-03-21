@@ -2,10 +2,13 @@
 #include "InputNeuron.h"
 #include "HiddenNeuron.h"
 #include "OutputNeuron.h"
+#include <random>
+#include <time.h>
 
 
 Network::Network(int in, int hidden, int out)
 {
+	srand(time(NULL));
 	input_num = in;
 	hidden_num = hidden;
 	output_num = out;
@@ -14,12 +17,12 @@ Network::Network(int in, int hidden, int out)
 	hidden_neurons = new HiddenNeuron[hidden];
 	OutputNeuron::set_hidden_num(hidden);
 	output_neurons = new OutputNeuron[out];
-	in_res = new float[in] {0};
-	hid_res = new float[hidden] {0};
-	out_res = new float[out] {0};
+	in_res = new double[in] {0};
+	hid_res = new double[hidden] {0};
+	out_res = new double[out] {0};
 };
 
-float* Network::process(float* input_array)
+double* Network::process(double* input_array)
 {
 	for (int i = 0; i < input_num; ++i)
 	{
