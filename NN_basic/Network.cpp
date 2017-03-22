@@ -52,32 +52,29 @@ void Network::learn(double* input, double* expected, double rate)
 
 	for (int i = 0; i < output_num; ++i)
 	{
-		coeff = rate * (output[i] - expected[i]); // * output[i] * (1 - output[i]);
+		coeff = (output[i] - expected[i]) * output[i] * (1 - output[i]);
 		double* old_weights = output_neurons[i].get_weights();
 		
 		for (int j = 0; j < hidden_num; ++j)
 		{
-			new_weights[j] = old_weights[j] - hidden_neurons[j].get_last() * coeff;
+			new_weights[j] = old_weights[j] - hidden_neurons[j].get_last() * coeff * rate;
 		}
 		output_neurons[i].set_weights(new_weights);
 
 		delete new_weights;
 	}
 
-	coeff = (output[0] - expected[0]);
+	double error = 0;
+
 	for (int i = 0; i < hidden_num; ++i)
 	{
+		error = output_neurons[0].get_weights()[i] * coeff;
+		coeff = error * hidden_neurons[i].get_last() * (1 - hidden_neurons[i].get_last());
 		double* old_weights = hidden_neurons[i].get_weights();
 		new_weights = new double[input_num];
 		for (int j = 0; j < input_num; ++j)
 		{
-			new_weights[j] = old_weights[j] - rate *
-											  input_neurons[j].get_last() *
-											  coeff *
-										   	  hidden_neurons[i].get_last() * (1 - hidden_neurons[i].get_last()) *
-											  coeff *
-											  output_neurons[0].get_weights()[i] *
-											  output[i] * (1 - output[i]);
+			new_weights[j] = old_weights[j] - input_neurons[j].get_last() * coeff * rate;
 		}
 		hidden_neurons[i].set_weights(new_weights);
 		delete new_weights;
